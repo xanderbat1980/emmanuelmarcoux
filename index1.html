@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déneigement Remorque</title>
+    <!-- CSS styles embedded within the HTML file -->
+    <style>
+        /* Basic styles for the page */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: #3498db;
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+            position: relative;
+        }
+
+        header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        #services .service-cards {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        #services .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex: 1 1 calc(33.333% - 20px);
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+
+        #services .card:hover {
+            transform: scale(1.05);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form input, form textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        form button:hover {
+            background: #2980b9;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Styles for the navigation bar */
+        nav {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #3498db;
+        }
+
+        /* Styles for the 3D photo container */
+        .photo-container {
+            perspective: 1000px; /* Perspective to create a 3D effect */
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .photo {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            transform-style: preserve-3d; /* Allow 3D transformations */
+            transition: transform 1s; /* Smooth transition */
+        }
+
+        .photo:hover {
+            transform: rotateY(180deg); /* Rotate 180 degrees on hover */
+        }
+
+        .photo img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Hide the back face of the image */
+        }
+
+        .photo img:nth-child(2) {
+            transform: rotateY(180deg); /* Rotate the second image 180 degrees */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <nav>
+        <ul>
+            <li><a href="#about">À Propos</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Galerie 3D</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Déneigement Remorque</h1>
+            <p>La sécurité et le service rapide répondant aux standards de qualité les plus élevés</p>
+        </div>
+    </header>
+    
+    <section id="about">
+        <div class="container">
+            <h2>À Propos de Nous</h2>
+            <p>Nous offrons des services de déneigement de remorques de gros camions avec un accent sur la sécurité et la rapidité.</p>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2>Nos Services</h2>
+            <p>Découvrez nos services de déneigement professionnels.</p>
+            <div class="service-cards">
+                <div class="card">
+                    <h3>Service 1</h3>
+                    <p>Description du service 1.</p>
+                </div>
+                <div class="card">
+                    <h3>Service 2</h3>
+                    <p>Description du service 2.</p>
+                </div>
+                <div class="card">
+                    <h3>Service 3</h3>
+                    <p>Description du service 3.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery section for 3D photos -->
+    <section id="gallery">
+        <div class="container">
+            <h2>Galerie 3D</h2>
+            <div class="photo-container">
+                <div class="photo">
+                    <img src="photo1.jpg" alt="Photo 1"> <!-- First image -->
+                    <img src="photo2.jpg" alt="Photo 2"> <!-- Second image -->
+                </div>
+                <div class="photo">
+                    <img src="photo3.jpg" alt="Photo 3"> <!-- Third image -->
+                    <img src="photo4.jpg" alt="Photo 4"> <!-- Fourth image -->
+                </div>
+                <div class="photo">
+                    <img src="photo5.jpg" alt="Photo 5"> <!-- Fifth image -->
+                    <img src="photo6.jpg" alt="Photo 6"> <!-- Sixth image -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Contactez-Nous</h2>
+            <form>
+                <input type="text" placeholder="Nom" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Message" required></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+    </section>
+
+    <div id="canvas-container"></div>
+
+    <footer>
+        <p>&copy; 2024 Déneigement Remorque. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Three.js script for 3D scene -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Scene, Camera, Renderer setup
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            var renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            // Adding light to the scene
+            var light = new THREE.PointLight(0xffffff);
+            light.position.set(10, 10, 10);
+            scene.add(light);
+
+            // Creating a 3D object (Example: A simple cube)
+            var geometry = new THREE.BoxGeometry();
+            var material = new THREE.MeshPhongMaterial({ color: 0x3498db });
+            var cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            camera.position.z = 5;
+
+            // Animation loop
+            var animate = function() {
+                requestAnimationFrame(animate);
+
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+
+                renderer.render(scene, camera);
+            };
+
+            animate();
+        });
+    </script>
+</body>
+</html>
