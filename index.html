@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Déneigement Remorque</title>
-    <!-- CSS styles embedded within the HTML file -->
     <style>
         /* Basic styles for the page */
         body, html {
@@ -13,30 +12,118 @@
             font-family: 'Arial', sans-serif;
             background: #f5f5f5;
             color: #333;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        /* Navigation bar styles */
+        nav {
+            background: #2c2c2c;
+            color: white;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            display: flex;
+            justify-content: center; /* Center the navigation */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #e91e63;
         }
 
         header {
-            background: #3498db;
+            background: #e91e63;
             color: white;
             text-align: center;
-            padding: 50px 0;
+            padding: 10px 20px; /* Reduced padding */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            height: 180px; /* Adjusted height */
+            width: 100%; /* Full width */
+        }
+
+        .light-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .rotating-light {
+            width: 100px; /* Adjusted size */
+            height: 100px; /* Adjusted size */
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Circle_Yellow_Solid.svg/2048px-Circle_Yellow_Solid.svg.png') no-repeat center center;
+            background-size: cover;
+            animation: rotateLight 1s infinite linear;
+            margin: 0 10px; /* Adjusted margin */
+        }
+
+        @keyframes rotateLight {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Adjusted space between elements */
+        }
+
+        .photo-container-small {
+            width: 100px; /* Adjusted size */
+            height: 100px; /* Adjusted size */
+            overflow: hidden;
+            border-radius: 50%;
             position: relative;
         }
 
-        header .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .photo-container-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
         }
 
-        header h1 {
-            font-size: 3em;
-            margin: 0;
+        .photo-container-small img:hover {
+            transform: scale(1.1);
         }
 
-        header p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
+        .header-text {
+            font-size: 2em; /* Increased font size */
+            margin: 5px 0; /* Reduced margin */
+        }
+
+        .sub-text {
+            font-size: 1.5em; /* Increased font size */
+            margin: 5px 0; /* Reduced margin */
         }
 
         .container {
@@ -87,18 +174,18 @@
             font-size: 1em;
             border: none;
             border-radius: 5px;
-            background: #3498db;
+            background: #e91e63;
             color: white;
             cursor: pointer;
             transition: background 0.3s;
         }
 
         form button:hover {
-            background: #2980b9;
+            background: #d81b60;
         }
 
         footer {
-            background: #2c3e50;
+            background: #2c2c2c;
             color: white;
             text-align: center;
             padding: 20px 0;
@@ -112,40 +199,6 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-        }
-
-        /* Styles for the navigation bar */
-        nav {
-            background: #2c3e50;
-            color: white;
-            padding: 10px 0;
-            position: sticky;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        nav ul li {
-            margin: 0 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2em;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #3498db;
         }
 
         /* Styles for the 3D photo container */
@@ -177,9 +230,84 @@
         .photo img:nth-child(2) {
             transform: rotateY(180deg); /* Rotate the second image 180 degrees */
         }
+
+        .large-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: black;
+            text-align: center;
+        }
+
+        /* Styles for the popup */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .popup.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-content h2 {
+            margin-top: 0;
+            color: #e91e63;
+        }
+
+        .popup-content p {
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .popup-content button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            background: #e91e63;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .popup-content button:hover {
+            background: #d81b60;
+        }
     </style>
 </head>
 <body>
+    <!-- Popup for Welcome Message -->
+    <div class="popup" id="welcomePopup">
+        <div class="popup-content">
+            <h2>Bienvenue</h2>
+            <p>
+                Bienvenue chers clients ! <br>
+                La satisfaction client, la rapidité et le professionnalisme sont les fondements de notre entreprise.
+            </p>
+            <button onclick="closePopup()">Fermer</button>
+        </div>
+    </div>
+
     <!-- Navigation bar -->
     <nav>
         <ul>
@@ -191,9 +319,19 @@
     </nav>
 
     <header>
-        <div class="container">
-            <h1>Déneigement Remorque</h1>
-            <p>La sécurité et le service rapide répondant aux standards de qualité les plus élevés</p>
+        <div class="light-container">
+            <div class="photo-container-small">
+                <img src="./assets/photo1.png" alt="Photo 1">
+            </div>
+            <div class="rotating-light"></div> <!-- Left rotating light -->
+            <div class="header-content">
+                <h1 class="header-text">Déneigement Remorque</h1>
+                <h2 class="sub-text">Appelez-nous sans plus tarder au 418-999-6666</h2>
+            </div>
+            <div class="rotating-light"></div> <!-- Right rotating light -->
+            <div class="photo-container-small">
+                <img src="./assets/photo2.png" alt="Photo 2">
+            </div>
         </div>
     </header>
     
@@ -267,6 +405,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Show the welcome popup on page load
+            const popup = document.getElementById('welcomePopup');
+            popup.classList.add('active');
+
             // Scene, Camera, Renderer setup
             var scene = new THREE.Scene();
             var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -299,6 +441,11 @@
 
             animate();
         });
+
+        function closePopup() {
+            const popup = document.getElementById('welcomePopup');
+            popup.classList.remove('active');
+        }
     </script>
 </body>
 </html>
